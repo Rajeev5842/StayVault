@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const socials = [
   {
@@ -28,36 +29,18 @@ const socials = [
       </svg>
     ),
   },
-  // {
-  //   name: "Twitter / X",
-  //   href: "https://twitter.com/stayvault",
-  //   icon: (
-  //     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-  //       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-  //     </svg>
-  //   ),
-  // },
-]
-
-const NAVBAR_OPTIONS = [
-    { label: "Home", id: "home", url : "/home" },
-    { label: "About Us", id: "about", url : "/about"},
-    { label: "Terms & Conditions", id: "tandc" , url : "/terms&conditions"},
-    { label: "Privacy & Policy", id: "privacy", url : "/privacy&policy"},
-    { label: "Contact", id: "contact", url : "/contact" },
 ]
 
 const quickLinks = [
-  { label: "Home",        url : "/home"  },
-  { label: "About Us",  url : "/about" },
-  { label: "Properties", url: "#destination-section" },
-  { label: "Contact Us", url : "/contact" },
+  { label: "Home",        to: "/home" },
+  { label: "About Us",   to: "/about" },
+  { label: "Properties", to: "#destination-section" },  // kept as anchor for scroll
+  { label: "Contact Us", to: "/contact" },
 ]
 
 const policies = [
-  { label: "Terms & Conditions",  url : "/terms&conditions" },
-  { label: "Privacy Policy",      url : "/privacy&policy" },
-  // { label: "Copyright Policy",    url: "/copyright" },
+  { label: "Terms & Conditions", to: "/terms-and-conditions" },
+  { label: "Privacy Policy",     to: "/privacy-and-policy" },
 ]
 
 const Footer = () => {
@@ -81,6 +64,7 @@ const Footer = () => {
 
           {/* Contact details */}
           <div className="flex flex-col gap-3">
+            {/* ✅ External links (WhatsApp, mailto) stay as <a> — correct */}
             <a
               href="https://wa.me/916396105393"
               target="_blank"
@@ -109,12 +93,12 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Social icons */}
+          {/* Social icons — ✅ Fixed: was using url={url}, now correctly uses href={href} */}
           <div className="flex items-center gap-3 mt-2">
-            {socials.map(({ name, url, icon }) => (
+            {socials.map(({ name, href, icon }) => (
               <a
                 key={name}
-                url={url}
+                href={href}        // ✅ Fixed: was url={url} before (broken!)
                 target="_blank"
                 rel="noreferrer"
                 aria-label={name}
@@ -126,29 +110,29 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* RIGHT — now 3 columns */}
+        {/* RIGHT — 3 columns */}
         <div className="grid grid-cols-3 gap-8">
 
-          {/* Quick Links */}
+          {/* Quick Links — ✅ Fixed: <a href> → <Link to> */}
           <div>
             <h4 className="text-white font-black uppercase tracking-[3px] text-xs mb-6">
               Quick Links
             </h4>
             <ul className="flex flex-col gap-3">
-              {quickLinks.map(({ label, url }) => (
+              {quickLinks.map(({ label, to }) => (
                 <li key={label}>
-                  <a
-                    href={url}
+                  <Link
+                    to={to}
                     className="text-white/40 text-sm hover:text-[#F0E130] transition-colors duration-300 hover:translate-x-1 inline-block"
                   >
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Services — no links, no change needed */}
           <div>
             <h4 className="text-white font-black uppercase tracking-[3px] text-xs mb-6">
               Services
@@ -167,20 +151,20 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Policies */}
+          {/* Policies — ✅ Fixed: <a href> → <Link to> */}
           <div>
             <h4 className="text-white font-black uppercase tracking-[3px] text-xs mb-6">
               Policies
             </h4>
             <ul className="flex flex-col gap-3">
-              {policies.map(({ label, url }) => (
+              {policies.map(({ label, to }) => (
                 <li key={label}>
-                  <a
-                    href={url}
+                  <Link
+                    to={to}
                     className="text-white/40 text-sm hover:text-[#F0E130] transition-colors duration-300 hover:translate-x-1 inline-block"
                   >
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
