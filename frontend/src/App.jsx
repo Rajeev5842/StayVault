@@ -7,6 +7,7 @@ import Journey from "./components/Journery";
 import WhyUs from "./components/WhyUs";
 import ComingSoon from "./components/Comingsoon";
 import Footer from "./components/Footer";
+import toast from "react-hot-toast";
 
 export default function App() {
   const [step, setStep] = useState(1);
@@ -19,14 +20,41 @@ export default function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const name = e.target.name.value;
-    const contact = e.target.contact.value;
-    const email = e.target.email.value;
-    const message = `Hotel: ${hotelQuery}%0AName: ${name}%0AContact: ${contact}%0AEmail: ${email}`;
-    window.open(`https://wa.me/916396105393?text=${message}`, "_blank");
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault()
+
+  const form = e.target
+
+  const payload = {
+    name: form.name.value,
+    email: form.email.value,
+    phone: form.contact.value,
+    subject: `Hotel Sourcing — ${hotelQuery}`,   // hotel name from step 1
+    message: `Looking for hotel: ${hotelQuery}`,
+  }
+
+  try {
+    const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/enquiries`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+
+    const data = await res.json()
+
+    if (!res.ok) {
+      toast.error(data.message || 'Something went wrong.')
+      return
+    }
+
+    toast.success("Details submitted! We'll get back to you soon.")
+    setStep(1)
+    setHotelQuery('')
+
+  } catch {
+    toast.error('Unable to reach server. Check your connection.')
+  }
+}
 
   return (
     <div className="font-montserrat bg-black text-white overflow-x-hidden">

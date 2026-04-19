@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { NAVBAR_OPTIONS } from './constants';
+import logo from "/images/logo.png"
 
 const Navbar = ({ scrolled }) => {
   return (
@@ -9,8 +10,8 @@ const Navbar = ({ scrolled }) => {
         scrolled ? "bg-black/70 backdrop-blur-sm" : "bg-transparent"
       }`}
     >
-      <div className="font-black text-xl tracking-[3px] text-white">
-        STAY<span className="text-[#F0E130]">VAULT</span>
+      <div className="font-black  tracking-[3px] text-white">
+        <img src={logo} alt="stay vault logo" className=' h-7 w-50' />
       </div>
       <nav className="flex gap-8">
         {NAVBAR_OPTIONS.map(({ label, id, url }) => (

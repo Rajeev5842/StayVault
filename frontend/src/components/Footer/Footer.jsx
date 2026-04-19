@@ -28,28 +28,36 @@ const socials = [
       </svg>
     ),
   },
-  {
-    name: "Twitter / X",
-    href: "https://twitter.com/stayvault",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-      </svg>
-    ),
-  },
+  // {
+  //   name: "Twitter / X",
+  //   href: "https://twitter.com/stayvault",
+  //   icon: (
+  //     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+  //       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  //     </svg>
+  //   ),
+  // },
+]
+
+const NAVBAR_OPTIONS = [
+    { label: "Home", id: "home", url : "/home" },
+    { label: "About Us", id: "about", url : "/about"},
+    { label: "Terms & Conditions", id: "tandc" , url : "/terms&conditions"},
+    { label: "Privacy & Policy", id: "privacy", url : "/privacy&policy"},
+    { label: "Contact", id: "contact", url : "/contact" },
 ]
 
 const quickLinks = [
-  { label: "Home",        href: "#hero" },
-  { label: "About Us",   href: "#destination-section" },
-  { label: "Properties", href: "#destination-section" },
-  { label: "Contact Us", href: "#destination-section" },
+  { label: "Home",        url : "/home"  },
+  { label: "About Us",  url : "/about" },
+  { label: "Properties", url: "#destination-section" },
+  { label: "Contact Us", url : "/contact" },
 ]
 
 const policies = [
-  { label: "Terms & Conditions",  href: "/terms" },
-  { label: "Privacy Policy",      href: "/privacy" },
-  { label: "Copyright Policy",    href: "/copyright" },
+  { label: "Terms & Conditions",  url : "/terms&conditions" },
+  { label: "Privacy Policy",      url : "/privacy&policy" },
+  // { label: "Copyright Policy",    url: "/copyright" },
 ]
 
 const Footer = () => {
@@ -82,7 +90,7 @@ const Footer = () => {
               <span className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#F0E130]/40 transition-colors duration-300">
                 📞
               </span>
-              +91 63961 05393
+              +91 9315019315
             </a>
             <a
               href="mailto:hello@stayvault.in"
@@ -103,10 +111,10 @@ const Footer = () => {
 
           {/* Social icons */}
           <div className="flex items-center gap-3 mt-2">
-            {socials.map(({ name, href, icon }) => (
+            {socials.map(({ name, url, icon }) => (
               <a
                 key={name}
-                href={href}
+                url={url}
                 target="_blank"
                 rel="noreferrer"
                 aria-label={name}
@@ -127,10 +135,10 @@ const Footer = () => {
               Quick Links
             </h4>
             <ul className="flex flex-col gap-3">
-              {quickLinks.map(({ label, href }) => (
+              {quickLinks.map(({ label, url }) => (
                 <li key={label}>
                   <a
-                    href={href}
+                    href={url}
                     className="text-white/40 text-sm hover:text-[#F0E130] transition-colors duration-300 hover:translate-x-1 inline-block"
                   >
                     {label}
@@ -165,10 +173,10 @@ const Footer = () => {
               Policies
             </h4>
             <ul className="flex flex-col gap-3">
-              {policies.map(({ label, href }) => (
+              {policies.map(({ label, url }) => (
                 <li key={label}>
                   <a
-                    href={href}
+                    href={url}
                     className="text-white/40 text-sm hover:text-[#F0E130] transition-colors duration-300 hover:translate-x-1 inline-block"
                   >
                     {label}

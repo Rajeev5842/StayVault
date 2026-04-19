@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import JourneyModal from './components/JourneyModal'
+import toast from 'react-hot-toast'
 
 
 const categories = [
@@ -12,18 +13,34 @@ const categories = [
 const Journey = () => {
   const [selected, setSelected] = useState(null)
 
-  const handleSubmit = ({ category, fullname, email, contact, location, checkin, checkout }) => {
-    const message =
-      `Category: ${category}%0A` +
-      `Name: ${fullname}%0A` +
-      `Email: ${email}%0A` +
-      `Contact: ${contact}%0A` +
-      `Location: ${location}%0A` +
-      `Check-in: ${checkin}%0A` +
-      `Check-out: ${checkout}`
-    window.open(`https://wa.me/916396105393?text=${message}`, '_blank')
+  const handleSubmit = async ({ category, fullname, email, contact, location, checkin, checkout }) => {
+  try {
+    const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/enquiries`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: fullname,
+        email: email,
+        phone: contact,
+        subject: `${category} Trip Enquiry`,
+        message: `Category: ${category}\nPreferred Location: ${location}\nCheck-in: ${checkin}\nCheck-out: ${checkout}`,
+      }),
+    })
+
+    const data = await res.json()
+
+    if (!res.ok) {
+      toast.error(data.message || 'Something went wrong.')
+      return
+    }
+
+    toast.success("Enquiry submitted! We'll get back to you soon.")
     setSelected(null)
+
+  } catch {
+    toast.error('Unable to reach server. Check your connection.')
   }
+}
 
   return (
     <section className="min-h-screen bg-black flex flex-col items-center justify-center px-[8%] py-24">
