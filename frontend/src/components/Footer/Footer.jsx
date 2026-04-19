@@ -39,8 +39,8 @@ const quickLinks = [
 ]
 
 const policies = [
-  { label: "Terms & Conditions", to: "/terms-and-conditions" },
-  { label: "Privacy Policy",     to: "/privacy-and-policy" },
+  { label: "Terms & Conditions", to: "/terms&conditions" },
+  { label: "Privacy Policy",     to: "/privacy&policy" },
 ]
 
 const Footer = () => {
